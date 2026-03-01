@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CHOIN — Business Model Canvas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:   #1C1208;
+    --bark:  #3D2010;
+    --husk:  #B8712A;
+    --straw: #E8C97E;
+    --parch: #F4ECD8;
+    --fog:   #EDE8DF;
+    --leaf:  #4A6741;
+    --clay:  #8B5E3C;
+    --warm:  #C9A96E;
+    --dim:   #7A6A58;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: #D8D0C4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px 48px;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    width: 100%;
+    max-width: 1320px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .header-left {}
+  .header-eyebrow {
+    font-size: 0.58rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 4px;
+  }
+  .header-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .header-title em { font-style: italic; color: var(--husk); }
+  .header-right {
+    text-align: right;
+  }
+  .header-sub {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dim);
+    line-height: 1.6;
+  }
+  .export-btn {
+    margin-top: 8px;
+    background: var(--ink);
+    color: var(--parch);
+    border: none;
+    padding: 8px 18px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .export-btn:hover { background: var(--husk); }
+
+  /* ── BMC WRAPPER ── */
+  .bmc-wrap {
+    width: 100%;
+    max-width: 1320px;
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  /* ── ROWS ── */
+  .row {
+    display: flex;
+    gap: 1px;
+  }
+  .row-top    { flex: 0 0 auto; }
+  .row-bottom { flex: 0 0 auto; }
+
+  /* ── CELLS ── */
+  .cell {
+    padding: 18px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-height: 0;
+  }
+
+  /* widths — 5 cols top/mid, 2 cols bottom */
+  .w1 { flex: 1.05; }
+  .w2 { flex: 1.05; }
+  .w3 { flex: 1.3; }
+  .w4 { flex: 1.05; }
+  .w5 { flex: 1.05; }
+  .w-half { flex: 1; }
+
+  /* backgrounds */
+  .bg-bark  { background: var(--bark); }
+  .bg-fog   { background: var(--fog); }
+  .bg-husk  { background: var(--husk); }
+  .bg-leaf  { background: var(--leaf); }
+  .bg-clay  { background: var(--clay); }
+  .bg-warm  { background: var(--warm); }
+  .bg-straw { background: var(--straw); }
+  .bg-parch { background: var(--parch); }
+
+  /* ── CELL LABEL ── */
+  .clabel {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.55rem;
+    font-weight: 800;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    margin-bottom: 13px;
+    flex-shrink: 0;
+  }
+  .clabel.on-dark { color: rgba(244,236,216,0.6); }
+  .clabel.on-light { color: rgba(28,18,8,0.5); }
+
+  .cnum {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    font-size: 0.52rem;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .cnum.dark-bg { background: rgba(255,255,255,0.15); color: rgba(244,236,216,0.8); }
+  .cnum.light-bg { background: rgba(28,18,8,0.12); color: rgba(28,18,8,0.6); }
+
+  /* ── ITEMS ── */
+  .items { display: flex; flex-direction: column; gap: 7px; flex: 1; }
+
+  .item {
+    padding: 7px 0 7px 10px;
+    border-left: 2px solid;
+  }
+  .item.on-dark  { border-color: rgba(255,255,255,0.2); }
+  .item.on-light { border-color: rgba(28,18,8,0.18); }
+  .item.accent   { border-color: var(--straw); }
+  .item.accent-g { border-color: rgba(255,255,255,0.5); }
+
+  .item-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .item-title.on-dark  { color: var(--parch); }
+  .item-title.on-light { color: var(--ink); }
+
+  .item-desc {
+    font-size: 0.62rem;
+    font-weight: 400;
+    line-height: 1.45;
+    margin-top: 2px;
+  }
+  .item-desc.on-dark  { color: rgba(244,236,216,0.5); }
+  .item-desc.on-light { color: rgba(28,18,8,0.5); }
+
+  /* ── DIVIDER ── */
+  .sep {
+    height: 1px;
+    margin: 10px 0;
+    flex-shrink: 0;
+  }
+  .sep.dark  { background: rgba(255,255,255,0.12); }
+  .sep.light { background: rgba(28,18,8,0.1); }
+
+  /* ── SUB-SECTION LABEL ── */
+  .sub-section {
+    font-size: 0.52rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin: 8px 0 6px;
+    flex-shrink: 0;
+  }
+  .sub-section.on-dark  { color: rgba(244,236,216,0.38); }
+  .sub-section.on-light { color: rgba(28,18,8,0.38); }
+
+  /* ── HIGHLIGHT CARD ── */
+  .hcard {
+    padding: 9px 12px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+  }
+  .hcard.straw { background: var(--straw); }
+  .hcard.dark  { background: rgba(28,18,8,0.2); }
+  .hcard-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .hcard.dark .hcard-title { color: var(--parch); }
+  .hcard-desc {
+    font-size: 0.61rem;
+    color: rgba(28,18,8,0.55);
+    margin-top: 3px;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+  .hcard.dark .hcard-desc { color: rgba(244,236,216,0.5); }
+
+  /* ── PILLS ── */
+  .pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; flex-shrink: 0; }
+  .pill {
+    padding: 3px 9px;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .pill.on-dark   { background: rgba(255,255,255,0.12); color: rgba(244,236,216,0.7); }
+  .pill.on-light  { background: rgba(28,18,8,0.1); color: rgba(28,18,8,0.7); }
+  .pill.straw     { background: var(--straw); color: var(--ink); }
+  .pill.leaf      { background: var(--leaf); color: var(--parch); }
+
+  /* ── COST ROW ── */
+  .cost-cols { display: flex; gap: 12px; flex: 1; }
+  .cost-col  { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .cost-group-label {
+    font-size: 0.52rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(244,236,216,0.4);
+    margin-bottom: 4px;
+    flex-shrink: 0;
+  }
+
+  /* ── REVENUE COLS ── */
+  .rev-cols { display: flex; gap: 12px; flex: 1; }
+  .rev-col  { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .rev-group-label {
+    font-size: 0.52rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(28,18,8,0.4);
+    margin-bottom: 4px;
+    flex-shrink: 0;
+  }
+
+  /* ── NEW BADGE ── */
+  .nbadge {
+    display: inline-block;
+    background: var(--leaf);
+    color: var(--parch);
+    font-size: 0.46rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    margin-left: 5px;
+    vertical-align: middle;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    width: 100%;
+    max-width: 1320px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .footer-note {
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+  }
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.56rem;
+    letter-spacing: 0.08em;
+    color: var(--dim);
+  }
+  .ldot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: white; padding: 0; }
+    .header { max-width: 100%; }
+    .bmc-wrap { max-width: 100%; }
+    .export-btn { display: none; }
+    .footer { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <p class="header-eyebrow">Promahadesa · Universitas Jember · 2026</p>
+    <h1 class="header-title">Business Model <em>Canvas</em></h1>
+  </div>
+  <div class="header-right">
+    <p class="header-sub">
+      CHOIN (COFFEE HUSK INNOVATION & OPTIMIZATION): PENGOLAHAN LIMBAH KULIT KOPI MENJADI MINUMAN SEDUH DAN K-POC <br/>DALAM MEWUJUDKAN ZERO WASTE PADA GAPOKTAN SUBUR DESA DARSONO <br>
+     
+    </p>
+    <button class="export-btn" ">CHOIN</button>
+  </div>
+</div>
+
+<!-- BMC -->
+<div class="bmc-wrap">
+
+  <!-- ══ ROW TOP ══ -->
+  <div class="row row-top">
+
+    <!-- 1. KEY PARTNERS -->
+    <div class="cell bg-bark w1" style="min-height:400px;">
+      <div class="clabel on-dark"><div class="cnum dark-bg">1</div>Mitra Utama</div>
+      <div class="items">
+        <div class="item on-dark">
+          <div class="item-title on-dark">GAPOKTAN Subur</div>
+          <div class="item-desc on-dark">Penyedia utama limbah kulit kopi & mitra produksi langsung di lapangan</div>
+        </div>
+        <div class="item on-dark">
+          <div class="item-title on-dark">Petani Kopi Dusun Kopang Krajan</div>
+          <div class="item-desc on-dark">Sumber bahan baku, terlibat aktif dalam pelatihan dan produksi</div>
+        </div>
+        <div class="item on-dark">
+          <div class="item-title on-dark">Universitas Jember (FTP)</div>
+          <div class="item-desc on-dark">Pendampingan riset, SOP produksi, pengembangan inovasi</div>
+        </div>
+        <div class="item on-dark">
+          <div class="item-title on-dark">LP2M Unej</div>
+          <div class="item-desc on-dark">Fasilitator Promahadesa, monitoring & evaluasi program</div>
+        </div>
+        <div class="item on-dark">
+          <div class="item-title on-dark">Pemerintah Desa Darsono</div>
+          <div class="item-desc on-dark">Dukungan kelembagaan dan akses infrastruktur desa</div>
+        </div>
+        <div class="item on-dark accent">
+          <div class="item-title on-dark">Dinas Pertanian Kab. Jember <span class="nbadge">+</span></div>
+          <div class="item-desc on-dark">Validasi produk pertanian & dukungan distribusi K-POC</div>
+        </div>
+        <div class="item on-dark accent">
+          <div class="item-title on-dark">Lembaga Uji Mutu / BPOM <span class="nbadge">+</span></div>
+          <div class="item-desc on-dark">Sertifikasi keamanan pangan produk cascara untuk pasar luas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. KEY ACTIVITIES -->
+    <div class="cell bg-fog w2" style="min-height:400px;">
+      <div class="clabel on-light"><div class="cnum light-bg">2</div>Kegiatan Utama</div>
+      <div class="items">
+        <div class="item on-light">
+          <div class="item-title on-light">Pengumpulan & Sortasi Limbah</div>
+          <div class="item-desc on-light">Koordinasi pengumpulan kulit kopi dari anggota Gapoktan setiap musim panen</div>
+        </div>
+        <div class="item on-light">
+          <div class="item-title on-light">Produksi Kombucha Cascara</div>
+          <div class="item-desc on-light">Ekstraksi, fermentasi SCOBY 7 hari, kristalisasi, pengemasan serbuk</div>
+        </div>
+        <div class="item on-light">
+          <div class="item-title on-light">Produksi K-POC</div>
+          <div class="item-desc on-light">Fermentasi anaerob 14 hari dengan EM4 & molase, penyaringan, pengemasan</div>
+        </div>
+        <div class="item on-light accent">
+          <div class="item-title on-light">Pengendalian Mutu (QC) <span class="nbadge">+</span></div>
+          <div class="item-desc on-light">Monitoring pH, aroma, warna setiap batch produksi secara berkala</div>
+        </div>
+        <div class="item on-light">
+          <div class="item-title on-light">Pelatihan & Pendampingan</div>
+          <div class="item-desc on-light">Sosialisasi dan workshop praktik langsung untuk anggota Gapoktan</div>
+        </div>
+        <div class="item on-light accent">
+          <div class="item-title on-light">Pemasaran Digital <span class="nbadge">+</span></div>
+          <div class="item-desc on-light">Pengelolaan marketplace, media sosial, website, dan konten branding</div>
+        </div>
+        <div class="item on-light accent">
+          <div class="item-title on-light">R&D & Pengembangan Produk <span class="nbadge">+</span></div>
+          <div class="item-desc on-light">Varian rasa baru, uji kandungan, penyempurnaan formula</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. VALUE PROPOSITION -->
+    <div class="cell bg-husk w3" style="min-height:400px;">
+      <div class="clabel on-dark"><div class="cnum dark-bg">3</div>Value Proposition</div>
+
+      <div class="hcard straw">
+        <div class="hcard-title">Kombucha Cascara</div>
+        <div class="hcard-desc">Minuman bubuk fermentasi kulit kopi — kaya antioksidan, probiotik alami, dan rempah pilihan. Tanpa pengawet, cita rasa autentik Jember.</div>
+      </div>
+      <div class="hcard straw">
+        <div class="hcard-title">K-POC Organik</div>
+        <div class="hcard-desc">Pupuk organik cair dari fermentasi kulit kopi — kandungan N, P, K tinggi, memperbaiki struktur tanah, lebih efektif dari pupuk kimia.</div>
+      </div>
+
+      <div class="sep dark"></div>
+      <div class="sub-section on-dark">Nilai untuk Petani</div>
+      <div class="items">
+        <div class="item on-dark">
+          <div class="item-title on-dark">Pendapatan Baru dari Limbah</div>
+          <div class="item-desc on-dark">Kulit kopi yang selama ini dibuang kini menjadi sumber penghasilan alternatif</div>
+        </div>
+        <div class="item on-dark">
+          <div class="item-title on-dark">Sistem Zero Waste Terintegrasi</div>
+          <div class="item-desc on-dark">Cascara dan K-POC saling melengkapi — seluruh limbah termanfaatkan optimal</div>
+        </div>
+      </div>
+
+      <div class="sep dark"></div>
+      <div class="sub-section on-dark">Nilai untuk Konsumen</div>
+      <div class="items">
+        <div class="item on-dark">
+          <div class="item-title on-dark">Produk Fungsional & Menyehatkan</div>
+          <div class="item-desc on-dark">Polifenol, flavonoid, kafein, dan mineral alami dalam setiap produk</div>
+        </div>
+        <div class="item on-dark">
+          <div class="item-title on-dark">Ramah Lingkungan & Berdampak</div>
+          <div class="item-desc on-dark">Membeli = berkontribusi nyata pada ekonomi sirkular petani desa</div>
+        </div>
+        <div class="item on-dark accent">
+          <div class="item-title on-dark">Harga Terjangkau</div>
+          <div class="item-desc on-dark">Cascara Rp 35.000/pack · K-POC Rp 25.000/L</div>
+        </div>
+        <div class="item on-dark accent">
+          <div class="item-title on-dark">Identitas Lokal Kopi Jember</div>
+          <div class="item-desc on-dark">Produk autentik dengan karakter rasa yang tidak ada di tempat lain</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. CUSTOMER RELATIONSHIPS -->
+    <div class="cell bg-warm w4" style="min-height:400px;">
+      <div class="clabel on-light"><div class="cnum light-bg">4</div>Hubungan Pelanggan</div>
+      <div class="items">
+        <div class="item on-light">
+          <div class="item-title on-light">Komunitas Media Sosial</div>
+          <div class="item-desc on-light">Instagram, TikTok, WhatsApp Group — edukasi konten produk dan gaya hidup sehat</div>
+        </div>
+        <div class="item on-light">
+          <div class="item-title on-light">Layanan Tatap Muka</div>
+          <div class="item-desc on-light">Demo produk di pasar tani, bazar, dan event lokal Jember</div>
+        </div>
+        <div class="item on-light accent">
+          <div class="item-title on-light">Program Loyalitas <span class="nbadge">+</span></div>
+          <div class="item-desc on-light">Diskon repeat order, bundling paket cascara + K-POC untuk pelanggan tetap</div>
+        </div>
+        <div class="item on-light accent">
+          <div class="item-title on-light">Edukasi Konten <span class="nbadge">+</span></div>
+          <div class="item-desc on-light">Cara seduh, manfaat kesehatan, cara aplikasi pupuk di media sosial</div>
+        </div>
+        <div class="item on-light accent">
+          <div class="item-title on-light">Ulasan & Testimoni <span class="nbadge">+</span></div>
+          <div class="item-desc on-light">Mendorong review organik dari pelanggan di marketplace dan media sosial</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. CUSTOMER SEGMENTS -->
+    <div class="cell bg-leaf w5" style="min-height:400px;">
+      <div class="clabel on-dark"><div class="cnum dark-bg">5</div>Segmen Pelanggan</div>
+
+      <div class="sub-section on-dark">Cascara</div>
+      <div class="items">
+        <div class="item on-dark">
+          <div class="item-title on-dark">Konsumen Gaya Hidup Sehat</div>
+          <div class="item-desc on-dark">Urban millennial & Gen-Z yang sadar kesehatan, tertarik produk fungsional alami</div>
+        </div>
+        <div class="item on-dark">
+          <div class="item-title on-dark">Pecinta Kopi & Specialty</div>
+          <div class="item-desc on-dark">Penikmat kopi yang mengeksplorasi produk turunan unik dari kopi</div>
+        </div>
+        <div class="item on-dark">
+          <div class="item-title on-dark">Reseller & Kafe Lokal</div>
+          <div class="item-desc on-dark">Kafe independen yang ingin menu unik berbasis produk lokal Jember</div>
+        </div>
+        <div class="item on-dark accent">
+          <div class="item-title on-dark">Oleh-Oleh Khas Jember <span class="nbadge">+</span></div>
+          <div class="item-desc on-dark">Wisatawan dan keluarga yang mencari produk lokal autentik</div>
+        </div>
+      </div>
+
+      <div class="sep dark"></div>
+      <div class="sub-section on-dark">K-POC</div>
+      <div class="items">
+        <div class="item on-dark">
+          <div class="item-title on-dark">Petani Kopi & Hortikultura</div>
+          <div class="item-desc on-dark">Anggota Gapoktan Subur dan petani di sekitar Desa Darsono</div>
+        </div>
+        <div class="item on-dark">
+          <div class="item-title on-dark">Petani Organik</div>
+          <div class="item-desc on-dark">Petani yang bermigrasi dari pupuk kimia ke sistem organik</div>
+        </div>
+        <div class="item on-dark accent">
+          <div class="item-title on-dark">Dinas Pertanian / Instansi <span class="nbadge">+</span></div>
+          <div class="item-desc on-dark">Pengadaan pupuk organik dalam program pemerintah daerah</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end row-top -->
+
+
+  <!-- ══ ROW MID ══ -->
+  <div class="row row-mid">
+
+
+    <!-- 6. KEY RESOURCES -->
+    <div class="cell bg-clay w2" style="min-height:260px;">
+      <div class="clabel on-dark"><div class="cnum dark-bg">6</div>Sumber Daya Utama</div>
+      <div class="items">
+        <div class="item on-dark">
+          <div class="item-title on-dark">Limbah Kulit Kopi</div>
+          <div class="item-desc on-dark">Bahan baku melimpah saat panen (±40% dari total berat buah kopi)</div>
+        </div>
+        <div class="item on-dark">
+          <div class="item-title on-dark">Tim Mahasiswa (10 Orang)</div>
+          <div class="item-desc on-dark">TIP, THP, Agroteknologi, Kedokteran, Teknologi Informasi — Unej</div>
+        </div>
+        <div class="item on-dark">
+          <div class="item-title on-dark">Alat Produksi</div>
+          <div class="item-desc on-dark">Kompor, blender, drum fermentasi 80L, toples kaca, kain saring, pH meter</div>
+        </div>
+        <div class="item on-dark">
+          <div class="item-title on-dark">Starter SCOBY & EM4</div>
+          <div class="item-desc on-dark">Kultur fermentasi untuk cascara (SCOBY) dan K-POC (EM4 + molase)</div>
+        </div>
+        <div class="item on-dark accent">
+          <div class="item-title on-dark">SOP & Modul Terstandar <span class="nbadge">+</span></div>
+          <div class="item-desc on-dark">Panduan produksi cetak & digital, HKI, publikasi ilmiah Sinta-3</div>
+        </div>
+        <div class="item on-dark accent">
+          <div class="item-title on-dark">Platform Digital <span class="nbadge">+</span></div>
+          <div class="item-desc on-dark">Website, Instagram, Shopee, Tokopedia untuk pemasaran produk</div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- 7. CHANNELS -->
+    <div class="cell bg-parch w4" style="min-height:260px;">
+      <div class="clabel on-light"><div class="cnum light-bg">7</div>Saluran Distribusi</div>
+      <div class="items">
+        <div class="item on-light">
+          <div class="item-title on-light">Marketplace Online</div>
+          <div class="item-desc on-light">Shopee & Tokopedia — jangkauan nasional, review, dan rating produk</div>
+        </div>
+        <div class="item on-light">
+          <div class="item-title on-light">Media Sosial</div>
+          <div class="item-desc on-light">Instagram & TikTok — konten edukatif, demo produk, storytelling petani</div>
+        </div>
+        <div class="item on-light">
+          <div class="item-title on-light">Website Resmi</div>
+          <div class="item-desc on-light">Profil produk, artikel edukasi, dan form pemesanan langsung</div>
+        </div>
+        <div class="item on-light">
+          <div class="item-title on-light">Penjualan Langsung</div>
+          <div class="item-desc on-light">Di lokasi Gapoktan, pasar desa, dan bazar lokal Jember</div>
+        </div>
+        <div class="item on-light accent">
+          <div class="item-title on-light">Kafe & Reseller Lokal <span class="nbadge">+</span></div>
+          <div class="item-desc on-light">Kemitraan dengan kafe independen Jember sebagai titik distribusi</div>
+        </div>
+        <div class="item on-light accent">
+          <div class="item-title on-light">Pengiriman Langsung (COD) <span class="nbadge">+</span></div>
+          <div class="item-desc on-light">Layanan antar untuk area Jember dan sekitarnya</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end row-mid -->
+
+
+  <!-- ══ ROW BOTTOM ══ -->
+  <div class="row row-bottom">
+
+    <!-- 8. COST STRUCTURE -->
+    <div class="cell bg-bark" style="flex:1; min-height:200px;">
+      <div class="clabel on-dark"><div class="cnum dark-bg">8</div>Struktur Biaya</div>
+      <div class="cost-cols">
+        <div class="cost-col">
+          <div class="cost-group-label">Biaya Tetap</div>
+          <div class="item on-dark">
+            <div class="item-title on-dark">Honorarium Pemateri</div>
+            <div class="item-desc on-dark">Narasumber pelatihan teknis produksi</div>
+          </div>
+          <div class="item on-dark">
+            <div class="item-title on-dark">Sewa Alat</div>
+            <div class="item-desc on-dark">Kompor & gas, blender, sound system, kamera dokumentasi</div>
+          </div>
+          <div class="item on-dark">
+            <div class="item-title on-dark">Website & Pemasaran Digital</div>
+            <div class="item-desc on-dark">Pembuatan website pemasaran produk</div>
+          </div>
+          <div class="item on-dark">
+            <div class="item-title on-dark">Materi Sosialisasi</div>
+            <div class="item-desc on-dark">Banner kegiatan, ATK, modul pelatihan (30 paket)</div>
+          </div>
+        </div>
+        <div class="cost-col">
+          <div class="cost-group-label">Biaya Variabel Cascara</div>
+          <div class="item on-dark">
+            <div class="item-title on-dark">Bahan Baku Kulit Kopi</div>
+            <div class="item-desc on-dark">Kulit kopi segar untuk produksi cascara</div>
+          </div>
+          <div class="item on-dark">
+            <div class="item-title on-dark">Bahan Pendukung</div>
+            <div class="item-desc on-dark">Gula, starter SCOBY, rempah (jahe, kayu manis, cengkeh), lemon</div>
+          </div>
+          <div class="item on-dark">
+            <div class="item-title on-dark">Kemasan Cascara</div>
+            <div class="item-desc on-dark">Standing pouch aluminium foil + label stiker produk</div>
+          </div>
+        </div>
+        <div class="cost-col">
+          <div class="cost-group-label">Biaya Variabel K-POC</div>
+          <div class="item on-dark">
+            <div class="item-title on-dark">Bahan Fermentasi</div>
+            <div class="item-desc on-dark">Kulit kopi, air kelapa, EM4, molase, dedak padi</div>
+          </div>
+          <div class="item on-dark">
+            <div class="item-title on-dark">Alat Fermentasi</div>
+            <div class="item-desc on-dark">Drum 80L, selang aerasi, kran outlet, ember ukur</div>
+          </div>
+          <div class="item on-dark">
+            <div class="item-title on-dark">Kemasan K-POC</div>
+            <div class="item-desc on-dark">Jerigen 1L + label komposisi dan tanggal produksi</div>
+          </div>
+        </div>
+        <div class="cost-col">
+          <div class="cost-group-label">Operasional</div>
+          <div class="item on-dark">
+            <div class="item-title on-dark">Transport Survey & Monitoring</div>
+            <div class="item-desc on-dark">6 kali kunjungan lapangan selama program berlangsung</div>
+          </div>
+          <div class="item on-dark">
+            <div class="item-title on-dark">Konsumsi Pelatihan</div>
+            <div class="item-desc on-dark">Peserta (30 org) + panitia (10 org) saat workshop</div>
+          </div>
+          <div class="item on-dark accent">
+            <div class="item-title on-dark">Total Anggaran Program</div>
+            <div class="item-desc on-dark" style="color:var(--straw);font-weight:600;">Rp 4.185.000 (Tahun 1)</div>
+          </div>
+        </div>
+      </div>
+      <div class="pills" style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);">
+        <span class="pill straw">Bahan Habis Pakai 58%</span>
+        <span class="pill on-dark">Sewa 13%</span>
+        <span class="pill on-dark">Honorarium 10%</span>
+        <span class="pill on-dark">Publikasi 10%</span>
+        <span class="pill on-dark">Survei 7%</span>
+        <span class="pill on-dark">Lainnya 2%</span>
+      </div>
+    </div>
+
+    <!-- 9. REVENUE STREAMS -->
+    <div class="cell bg-straw" style="flex:1; min-height:200px;">
+      <div class="clabel on-light"><div class="cnum light-bg">9</div>Arus Pendapatan</div>
+      <div class="rev-cols">
+        <div class="rev-col">
+          <div class="rev-group-label">Pendapatan Langsung</div>
+          <div class="item on-light">
+            <div class="item-title on-light">Penjualan Kombucha Cascara</div>
+            <div class="item-desc on-light">Per pack via marketplace, media sosial, dan penjualan langsung</div>
+          </div>
+          <div class="item on-light">
+            <div class="item-title on-light">Penjualan K-POC Organik</div>
+            <div class="item-desc on-light">Per botol 1L untuk petani lokal dan konsumen pertanian organik</div>
+          </div>
+          <div class="item on-light">
+            <div class="item-title on-light">Paket Bundle</div>
+            <div class="item-desc on-light">Cascara + K-POC dalam satu paket dengan harga spesial</div>
+          </div>
+        </div>
+        <div class="rev-col">
+          <div class="rev-group-label">Pendapatan B2B</div>
+          <div class="item on-light">
+            <div class="item-title on-light">Wholesale / Reseller</div>
+            <div class="item-desc on-light">Pembelian partai besar untuk kafe, distributor, toko oleh-oleh</div>
+          </div>
+          <div class="item on-light">
+            <div class="item-title on-light">Pengadaan Dinas Pertanian</div>
+            <div class="item-desc on-light">K-POC masuk program pupuk organik pemerintah daerah</div>
+          </div>
+          <div class="item on-light accent">
+            <div class="item-title on-light">Kemitraan Kafe Lokal <span class="nbadge">+</span></div>
+            <div class="item-desc on-light">Supply reguler cascara ke kafe independen sebagai bahan menu</div>
+          </div>
+        </div>
+        <div class="rev-col">
+          <div class="rev-group-label">Pendapatan Jangka Panjang</div>
+          <div class="item on-light accent">
+            <div class="item-title on-light">Lisensi Modul Produksi <span class="nbadge">+</span></div>
+            <div class="item-desc on-light">Pelatihan berbayar ke desa lain atau Gapoktan lain yang ingin replikasi</div>
+          </div>
+          <div class="item on-light accent">
+            <div class="item-title on-light">Agrowisata / Eco-Tourism <span class="nbadge">+</span></div>
+            <div class="item-desc on-light">Paket kunjungan kebun kopi + workshop pembuatan cascara</div>
+          </div>
+          <div class="item on-light accent">
+            <div class="item-title on-light">Sertifikasi & HKI <span class="nbadge">+</span></div>
+            <div class="item-desc on-light">Nilai tambah produk tersertifikasi untuk pasar premium dan ekspor</div>
+          </div>
+        </div>
+      </div>
+      <div class="pills" style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(28,18,8,0.1);">
+        <span class="pill on-light">Cost-Based Pricing</span>
+        <span class="pill on-light">Value-Based (Cascara)</span>
+        <span class="pill on-light">Penetration (K-POC)</span>
+        <span class="pill leaf">Bundling Discount</span>
+      </div>
+    </div>
+
+  </div><!-- end row-bottom -->
+
+</div><!-- end bmc-wrap -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <p class="footer-note">Business Model Canvas · CHOIN · Promahadesa Universitas Jember 2026 · Desa Darsono, Arjasa, Jember</p>
+  <div class="legend">
+    <div class="legend-item"><div class="ldot" style="background:var(--bark)"></div>Mitra & Aktivitas</div>
+    <div class="legend-item"><div class="ldot" style="background:var(--husk)"></div>Value Proposition</div>
+    <div class="legend-item"><div class="ldot" style="background:var(--leaf)"></div>Segmen & Hubungan</div>
+    <div class="legend-item"><div class="ldot" style="background:var(--clay)"></div>Sumber Daya & Kanal</div>
+    <div class="legend-item"><div class="ldot" style="background:var(--straw)"></div>Biaya & Pendapatan</div>
+    <div class="legend-item"><div class="ldot" style="background:var(--leaf);border-radius:1px;width:10px;height:10px;"></div><span style="color:var(--leaf);font-weight:700;">+ Elemen baru</span></div>
+  </div>
+</div>
+
+</body>
+</html>
